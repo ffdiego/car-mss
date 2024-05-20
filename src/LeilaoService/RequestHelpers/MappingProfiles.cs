@@ -6,10 +6,10 @@ public class MappingProfiles: Profile
 {
     public MappingProfiles()
     {
-        CreateMap<Leilao, LeilaoDTO>().IncludeMembers(x => x.Item);
-        CreateMap<Item, LeilaoDTO>();
-        CreateMap<NovoLeilaoDTO, Leilao>()
+        CreateMap<Auction, AuctionDTO>().IncludeMembers(x => x.Item);
+        CreateMap<Item, AuctionDTO>();
+        CreateMap<CreateAuctionDTO, Auction>()
             .ForMember(d => d.Item, o => o.MapFrom(s => s));
-        CreateMap<NovoLeilaoDTO, Item>();
+        CreateMap<CreateAuctionDTO, Item>();
     }
 }

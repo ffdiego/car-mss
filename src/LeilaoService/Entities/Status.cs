@@ -2,7 +2,7 @@
 
 public enum Status
 {
-    Ativa,
-    Encerrada,
-    PrecoMininoNaoAtingido
+    Live,
+    Finished,
+    ReserveNotMet
 }

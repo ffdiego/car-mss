@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{85FE8717-01FC-4C57-A4DE-85B0AA13DCD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeilaoService", "src\LeilaoService\LeilaoService.csproj", "{E8BD4C06-15FA-488E-80A6-0E2AC644B41D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionService", "src\LeilaoService\AuctionService.csproj", "{E8BD4C06-15FA-488E-80A6-0E2AC644B41D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,5 +23,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E8BD4C06-15FA-488E-80A6-0E2AC644B41D} = {85FE8717-01FC-4C57-A4DE-85B0AA13DCD2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7845DDBB-5B6A-4F46-9AFF-F25FB1C76C59}
 	EndGlobalSection
 EndGlobal

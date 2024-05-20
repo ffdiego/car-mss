@@ -6,14 +6,14 @@ namespace LeilaoService;
 public class Item
 {
     public Guid Id { get; set; }
-    public string Fabrica { get; set; }
-    public string Modelo { get; set; }
-    public int Ano { get; set; }
-    public string Cor { get; set; }
-    public int Quilometragem { get; set; }
-    public string URLImagem { get; set; }
+    public string Make { get; set; }
+    public string Model { get; set; }
+    public int Year { get; set; }
+    public string Color { get; set; }
+    public int Mileage { get; set; }
+    public string ImageUrl { get; set; }
 
     // propriedades de navegação
-    public Leilao Leilao { get; set; }
+    public Auction Leilao { get; set; }
     public Guid LeilaoId { get; set; }
 }

@@ -3,32 +3,32 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace LeilaoService.Data.Migrations
+namespace AuctionService.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class migration00 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Leiloes",
+                name: "Auctions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PrecoReserva = table.Column<int>(type: "integer", nullable: false),
-                    Vendedor = table.Column<string>(type: "text", nullable: true),
-                    Vencedor = table.Column<string>(type: "text", nullable: true),
-                    QuantidadeVendida = table.Column<int>(type: "integer", nullable: true),
-                    LanceAtualMaisAlto = table.Column<int>(type: "integer", nullable: true),
-                    CriadoEm = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    AtualizadoEm = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FinalizadoEm = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ReservePrice = table.Column<int>(type: "integer", nullable: false),
+                    Seller = table.Column<string>(type: "text", nullable: true),
+                    Winner = table.Column<string>(type: "text", nullable: true),
+                    SoldAmount = table.Column<int>(type: "integer", nullable: true),
+                    CurrentHighBid = table.Column<int>(type: "integer", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AuctionEnd = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Leiloes", x => x.Id);
+                    table.PrimaryKey("PK_Auctions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -36,21 +36,21 @@ namespace LeilaoService.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Fabrica = table.Column<string>(type: "text", nullable: true),
-                    Modelo = table.Column<string>(type: "text", nullable: true),
-                    Ano = table.Column<int>(type: "integer", nullable: false),
-                    Cor = table.Column<string>(type: "text", nullable: true),
-                    Quilometragem = table.Column<int>(type: "integer", nullable: false),
-                    URLImagem = table.Column<string>(type: "text", nullable: true),
+                    Make = table.Column<string>(type: "text", nullable: true),
+                    Model = table.Column<string>(type: "text", nullable: true),
+                    Year = table.Column<int>(type: "integer", nullable: false),
+                    Color = table.Column<string>(type: "text", nullable: true),
+                    Mileage = table.Column<int>(type: "integer", nullable: false),
+                    ImageUrl = table.Column<string>(type: "text", nullable: true),
                     LeilaoId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Items", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Items_Leiloes_LeilaoId",
+                        name: "FK_Items_Auctions_LeilaoId",
                         column: x => x.LeilaoId,
-                        principalTable: "Leiloes",
+                        principalTable: "Auctions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -69,7 +69,7 @@ namespace LeilaoService.Data.Migrations
                 name: "Items");
 
             migrationBuilder.DropTable(
-                name: "Leiloes");
+                name: "Auctions");
         }
     }
 }
