@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace LeilaoService;
+namespace AuctionService;
 
 public class MappingProfiles: Profile
 {

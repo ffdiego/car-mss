@@ -1,4 +1,4 @@
-﻿namespace LeilaoService;
+﻿namespace AuctionService;
 
 public enum Status
 {

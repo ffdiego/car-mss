@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LeilaoService;
+namespace AuctionService;
 
 [ApiController]
 [Route("api/auctions")]
@@ -18,40 +18,40 @@ public class AuctionController: ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<AuctionDTO>>> GetAllLeiloes()
+    public async Task<ActionResult<List<AuctionDTO>>> GetAllAuctions()
     {
-        var leiloes = await _context.Auctions
+        var auctions = await _context.Auctions
             .Include(x => x.Item)
             .OrderBy(x => x.Item.Make)
             .ToListAsync();
         
-        return _mapper.Map<List<AuctionDTO>>(leiloes);
+        return _mapper.Map<List<AuctionDTO>>(auctions);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<AuctionDTO>> GetLeilaoById(Guid id)
+    public async Task<ActionResult<AuctionDTO>> GetAuctionByID(Guid id)
     {
-        var leilao = await _context.Auctions
+        var auction = await _context.Auctions
             .Include(x => x.Item)
             .FirstOrDefaultAsync(x => x.Id == id);
         
-        if (leilao == null) 
+        if (auction == null) 
         {
             return NotFound();
         }
 
-        return _mapper.Map<AuctionDTO>(leilao);
+        return _mapper.Map<AuctionDTO>(auction);
     }
 
     [HttpPost]
-    public async Task<ActionResult<AuctionDTO>> CriaLeilao(CreateAuctionDTO novoLeilaoDTO) 
+    public async Task<ActionResult<AuctionDTO>> NewAuction(CreateAuctionDTO newAuctionDTO) 
     {
-        var leilao = _mapper.Map<Auction>(novoLeilaoDTO);
+        var auction = _mapper.Map<Auction>(newAuctionDTO);
         
         // TODO: adicionar usuário atual como Seller
-        leilao.Seller = "UsuarioHardcoded";
+        auction.Seller = "UsuarioHardcoded";
 
-        _context.Auctions.Add(leilao);
+        _context.Auctions.Add(auction);
 
         var result = await _context.SaveChangesAsync() > 0;
 
@@ -60,28 +60,28 @@ public class AuctionController: ControllerBase
             return BadRequest("Não foi possível adicionar Leilao no DB");
         }
 
-        return CreatedAtAction(nameof(GetLeilaoById), new {leilao.Id}, _mapper.Map<AuctionDTO>(leilao));
+        return CreatedAtAction(nameof(GetAuctionByID), new {auction.Id}, _mapper.Map<AuctionDTO>(auction));
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult> UpdateLeilao(Guid id, UpdateActionDTO updateLeilaoDTO)
+    public async Task<ActionResult> UpdateAuction(Guid id, UpdateActionDTO updateAuctionDTO)
     {
-        var leilao = await _context.Auctions
+        var auction = await _context.Auctions
             .Include(x => x.Item)
             .FirstOrDefaultAsync(x => x.Id == id);
         
-        if (leilao == null)
+        if (auction == null)
         {
             return NotFound();
         }
 
         // TODO: check seller == username
 
-        leilao.Item.Make = updateLeilaoDTO.Make ?? leilao.Item.Make;
-        leilao.Item.Model = updateLeilaoDTO.Model ?? leilao.Item.Model;
-        leilao.Item.Color = updateLeilaoDTO.Color ?? leilao.Item.Color;
-        leilao.Item.Mileage = updateLeilaoDTO.Mileage ?? leilao.Item.Mileage;
-        leilao.Item.Year = updateLeilaoDTO.Year ?? leilao.Item.Year;
+        auction.Item.Make = updateAuctionDTO.Make ?? auction.Item.Make;
+        auction.Item.Model = updateAuctionDTO.Model ?? auction.Item.Model;
+        auction.Item.Color = updateAuctionDTO.Color ?? auction.Item.Color;
+        auction.Item.Mileage = updateAuctionDTO.Mileage ?? auction.Item.Mileage;
+        auction.Item.Year = updateAuctionDTO.Year ?? auction.Item.Year;
 
         var result = await _context.SaveChangesAsync() > 0;
 

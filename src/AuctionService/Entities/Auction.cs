@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LeilaoService;
+namespace AuctionService;
 
 [Table("Auctions")]
 public class Auction

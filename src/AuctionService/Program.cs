@@ -1,4 +1,4 @@
-using LeilaoService;
+using AuctionService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

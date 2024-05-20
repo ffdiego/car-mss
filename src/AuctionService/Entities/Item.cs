@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LeilaoService;
+namespace AuctionService;
 
 [Table("Items")]
 public class Item
@@ -14,6 +14,6 @@ public class Item
     public string ImageUrl { get; set; }
 
     // propriedades de navegação
-    public Auction Leilao { get; set; }
-    public Guid LeilaoId { get; set; }
+    public Auction Auction { get; set; }
+    public Guid AuctionId { get; set; }
 }

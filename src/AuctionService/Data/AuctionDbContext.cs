@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace LeilaoService;
+namespace AuctionService;
 
 public class AuctionDbContext : DbContext
 {
