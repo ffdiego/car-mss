@@ -87,7 +87,33 @@ public class AuctionController: ControllerBase
 
         if (!result) 
         {
-            return BadRequest("Problema saving changes");
+            return BadRequest("Houve um erro persistir as mudanças no banco");
+        }
+
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteAuction(Guid id)
+    {
+        var auction = await _context.Auctions
+            .Include(x => x.Item)
+            .FirstOrDefaultAsync(x => x.Id == id);
+        
+        if (auction == null)
+        {
+            return NotFound();
+        }
+
+        // TODO: check seller == username
+
+        _context.Auctions.Remove(auction);
+
+        var result = await _context.SaveChangesAsync() > 0;
+
+        if (!result) 
+        {
+            return BadRequest("Houve um erro persistir as mudanças no banco");
         }
 
         return Ok();
