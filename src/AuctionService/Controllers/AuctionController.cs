@@ -97,8 +97,7 @@ public class AuctionController: ControllerBase
     public async Task<ActionResult> DeleteAuction(Guid id)
     {
         var auction = await _context.Auctions
-            .Include(x => x.Item)
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .FindAsync(id);
         
         if (auction == null)
         {
