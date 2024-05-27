@@ -1,6 +1,5 @@
 using System.Net;
-using MongoDB.Driver;
-using MongoDB.Entities;
+using MassTransit;
 using Polly;
 using Polly.Extensions.Http;
 using SearchService;
@@ -20,8 +19,16 @@ builder.Services
 
 var app = builder.Build();
 
-app.UseAuthorization();
+// RabbitMQ
+builder.Services.AddMassTransit(x => 
+{
+    x.UsingRabbitMq((context, cfg) => 
+    {
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
+app.UseAuthorization();
 app.MapControllers();
 
 app.Lifetime.ApplicationStarted.Register(async () => 
