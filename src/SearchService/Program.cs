@@ -6,6 +6,7 @@ using SearchService;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 
 builder.Services
@@ -17,16 +18,19 @@ builder.Services
             .WaitAndRetryForeverAsync(_ => TimeSpan.FromSeconds(3))
     );
 
-var app = builder.Build();
-
 // RabbitMQ
 builder.Services.AddMassTransit(x => 
 {
+    x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
+    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("search", false));
+
     x.UsingRabbitMq((context, cfg) => 
     {
         cfg.ConfigureEndpoints(context);
     });
 });
+
+var app = builder.Build();
 
 app.UseAuthorization();
 app.MapControllers();
